@@ -31,7 +31,7 @@ public class Picker extends AppCompatActivity
     {
         SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        String ampm =" ";
+        String ampm ="AM";
         Context context =getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
@@ -40,21 +40,20 @@ public class Picker extends AppCompatActivity
         int s = Calendar.getInstance().get(Calendar.SECOND);
         int ringMin = timePicker.getMinute();
         int ringHour = timePicker.getHour();
-        editor.putInt("ringHour",ringHour);
-        editor.putInt("ringMin",ringMin);
-        editor.commit();
-        int h2=ringHour;
-        if(ringHour>11){h2=ringHour-12;}
-        if(ringHour>11)
-        {
-            ampm= "PM";
-        }
-        else {ampm="AM";}
-        CharSequence text = "Alarm set for "+h2+" : "+ringMin+" "+ampm;
-        CharSequence text2 = h2+" : "+ringMin+" "+ampm;
+        int displayHour = ringHour;
+        int displayMin = ringMin;
+        if(ringHour==0 && h!=0){ringHour=24;}
         ringMin = (ringMin*60)-(m*60)-s;
         ringHour = (ringHour*60*60)-(h*60*60);
         ringMin = ringMin + ringHour;
+        if(displayHour>11){ampm="PM";}
+        if(displayHour==0){displayHour=12;}
+        if(displayHour>12){displayHour=displayHour-12;}
+        CharSequence text = "Alarm set for "+displayHour+" : "+displayMin+" "+ampm;
+        editor.putInt("ringHour",displayHour);
+        editor.putInt("ringMin",displayMin);
+        editor.putString("ampm",ampm);
+        editor.commit();
         Intent intent = new Intent(Picker.this, FullscreenActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(Picker.this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         ((AlarmManager) getSystemService(ALARM_SERVICE)).setExact(AlarmManager.RTC_WAKEUP, (System.currentTimeMillis()+ ringMin*1000), pendingIntent);
@@ -63,7 +62,6 @@ public class Picker extends AppCompatActivity
         toast.show();
 
         Intent intent1 = new Intent(this,MainActivity.class);
-        intent1.putExtra("alarmTime",text2);
         startActivity(intent1);
     }
 }

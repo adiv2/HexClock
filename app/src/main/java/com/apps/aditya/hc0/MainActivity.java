@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
 {
     public static final String MyPREFERENCES = "MyPrefs" ;
     String alarmText="";
-    String ampm;
+    String ampm="AM";
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,13 +38,8 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         int min = sharedPreferences.getInt("ringMin",0);
         int hr = sharedPreferences.getInt("ringHour",0);
-        if(hr>11)
-        {
-            ampm= "PM";
-        }
-        if(hr>11){hr=hr-12;}
-        if(min==0&&hr==0){alarmText="No alarm :(";}
-        else{alarmText=hr+" : "+min+" "+ampm;}
+        ampm = sharedPreferences.getString("ampm","AM");
+        alarmText=hr+" : "+min+" "+ampm;
 
         TextView tv = (TextView) findViewById(R.id.textView1);
         tv.setText(alarmText);
