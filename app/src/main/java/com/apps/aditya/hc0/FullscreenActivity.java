@@ -165,10 +165,7 @@ public class FullscreenActivity extends AppCompatActivity
     protected void onPostCreate(Bundle savedInstanceState)
     {
         super.onPostCreate(savedInstanceState);
-
         // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
         delayedHide(100);
     }
 
@@ -230,18 +227,11 @@ public class FullscreenActivity extends AppCompatActivity
     }
     public void dj()
     {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        long[] pattern = {0, 0,1000};
-        v.vibrate(pattern,-1);
         int ir = (int)(Math.random()*255);
         int ig = (int)(Math.random()*255);
         int ib = (int)(Math.random()*255);
         Color dTextColor =  new Color();
         int dText1 = dTextColor.argb(255,ir,ig,ib);
-        // int dt = dTextColor.hashCode();
-        //String dText1 = String.format("#%06X", (0xFFFFFF & dt));
-        // dText.setText(dText1);
-        // dText.setForeground(dTextColor);
         radomizer();
         Color color1 = new Color();
         int col1 = color1.argb(255,r,g,b);
@@ -339,11 +329,13 @@ public class FullscreenActivity extends AppCompatActivity
         }
         System.out.print("1");
     }
-
+    
     public void play()
     {
+        Vibrator v1 = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        long pattern[]={0,1000,1000};
+        v1.vibrate(pattern,0);
         MediaPlayer mp=new MediaPlayer();
-
         try{
             mp.setDataSource(Environment.getExternalStorageDirectory()+"/alarmTone.mp3");//Write your location here
             mp.prepare();
