@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ import java.util.Calendar;
 public class FullscreenActivity extends AppCompatActivity
 {
     MediaPlayer mp;
+    PowerManager.WakeLock wl;
     int r,g,b;
     int mainC1=1,mainC2,mainC3,mainDt=2;
     /**
@@ -111,9 +115,23 @@ public class FullscreenActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN |
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN |
+                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         setContentView(R.layout.activity_fullscreen);
+
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wl = pm.newWakeLock(PowerManager.RELEASE_FLAG_WAIT_FOR_NO_PROXIMITY, "My Tag");
+        wl.acquire();
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -304,6 +322,7 @@ public class FullscreenActivity extends AppCompatActivity
         {
             finish();
             System.exit(1);
+            wl.release();
         }
         System.out.print("1");
     }
@@ -315,6 +334,7 @@ public class FullscreenActivity extends AppCompatActivity
         {
             finish();
             System.exit(1);
+            wl.release();
         }
         System.out.print("1");
     }
@@ -326,10 +346,11 @@ public class FullscreenActivity extends AppCompatActivity
         {
             finish();
             System.exit(1);
+            wl.release();
         }
         System.out.print("1");
     }
-    
+
     public void play()
     {
         Vibrator v1 = (Vibrator) getSystemService(VIBRATOR_SERVICE);
