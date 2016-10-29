@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_buzz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#900099dd"
+    tools:context="com.apps.aditya.hc0.Buzz">
+
+    <Button
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/hour"
+        android:textSize="13pt"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@android:color/black"
+        android:onClick="exitApp1"/>
+
+    <Button
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/min"
+        android:textSize="13pt"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@android:color/black"
+        android:onClick="exitApp2"/>
+
+    <Button
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/min"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/sec"
+        android:textSize="13pt"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@android:color/black"
+        android:onClick="exitApp3"/>
+
+    <TextView
+        android:text="Wake UP!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="158dp"
+        android:id="@+id/dtext"
+        android:layout_below="@+id/min"
+        android:layout_centerHorizontal="true"
+        android:textSize="36pt"/>
+
+</RelativeLayout>
