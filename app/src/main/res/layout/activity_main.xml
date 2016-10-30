@@ -24,22 +24,26 @@
         android:layout_marginBottom="13dp"
         android:onClick="launchPicker"/>
 
-    <Button
-        android:text="full"
+    <TextView
+        android:text="Wake Up!"
+        android:textColor="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:onClick="launchFull"
-        android:layout_alignBottom="@+id/floatingActionButton"
-        android:layout_alignParentEnd="true"/>
+        android:id="@+id/textView2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textSize="50px"
+        android:paddingBottom="8dp"/>
 
     <TextView
-        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView1"
         android:textSize="100px"
         android:textColor="@color/colorAccent"
-        />
+        android:layout_marginTop="27dp"
+        android:text="hi"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
 
 </RelativeLayout>
