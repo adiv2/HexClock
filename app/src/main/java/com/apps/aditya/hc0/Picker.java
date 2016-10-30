@@ -43,6 +43,7 @@ public class Picker extends AppCompatActivity
         int displayHour = ringHour;
         int displayMin = ringMin;
         if(ringHour==0 && h!=0){ringHour=24;}
+        if(ringHour<=h && ringMin<m){ringHour=ringHour+24;}
         ringMin = (ringMin*60)-(m*60)-s;
         ringHour = (ringHour*60*60)-(h*60*60);
         ringMin = ringMin + ringHour;
