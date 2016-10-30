@@ -2,6 +2,8 @@ package com.apps.aditya.hc0;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -13,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -30,6 +33,7 @@ public class FullscreenActivity extends AppCompatActivity
 {
     MediaPlayer mp;
     PowerManager.WakeLock wl;
+    public static final String MyPREFERENCES = "MyPrefs" ;
     int r,g,b;
     int mainC1=1,mainC2,mainC3,mainDt=2;
     /**
@@ -353,12 +357,21 @@ public class FullscreenActivity extends AppCompatActivity
 
     public void play()
     {
+        SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String alarmTune = sharedpreferences.getString("tune","");
+        int time = sharedpreferences.getInt("one",10);
+        Log.d("Hello", "play: "+alarmTune+" "+time);
+        if(alarmTune.equalsIgnoreCase("Soothing")){alarmTune="alarmTone1.mp3";}
+        else{alarmTune="alarmTone2.mp3";}
         Vibrator v1 = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         long pattern[]={0,1000,1000};
         v1.vibrate(pattern,0);
+        Log.d("Hello", "play: "+alarmTune+" "+time);
         MediaPlayer mp=new MediaPlayer();
-        try{
-            mp.setDataSource(Environment.getExternalStorageDirectory()+"/alarmTone.mp3");//Write your location here
+        try
+        {
+            AssetFileDescriptor assetFileDescriptor = getAssets().openFd(alarmTune);
+            mp.setDataSource(assetFileDescriptor.getFileDescriptor(),assetFileDescriptor.getStartOffset(),assetFileDescriptor.getLength());//Write your location here
             mp.prepare();
             mp.start();
 
