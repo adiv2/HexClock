@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
         int min = sharedPreferences.getInt("ringMin",0);
         int hr = sharedPreferences.getInt("ringHour",0);
         ampm = sharedPreferences.getString("ampm","AM");
+        int alarmStatus = sharedPreferences.getInt("alarmStatus",1);
         String alarmLabel = sharedPreferences.getString("alarmLabel","Wake Up!");
         alarmText=hr+":"+min+" "+ampm;
         if(min <10 ){alarmText=hr+":0"+min+" "+ampm;}
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity
         editor.putString("alarmLabel",alarmLabel);
         editor.putString("alarmText",at);
         editor.commit();
+        Switch sw  = (Switch) findViewById(R.id.switch1);
+
+        if(alarmStatus==1) {sw.setChecked(true);}
+        else {sw.setChecked(false);}
 
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE)
