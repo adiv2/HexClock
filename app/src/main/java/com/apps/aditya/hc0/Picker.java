@@ -19,7 +19,7 @@ import java.util.StringTokenizer;
 
 public class Picker extends AppCompatActivity
 {
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +33,7 @@ public class Picker extends AppCompatActivity
         SharedPreferences sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
         String ampm ="AM";
+        int alarmStatus = sharedpreferences.getInt("alarmStatus",1);
         Context context =getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
@@ -60,8 +61,10 @@ public class Picker extends AppCompatActivity
         Intent intent = new Intent(Picker.this, FullscreenActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         PendingIntent pendingIntent = PendingIntent.getActivity(Picker.this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        ((AlarmManager) getSystemService(ALARM_SERVICE)).setExact(AlarmManager.RTC_WAKEUP, (System.currentTimeMillis()+ ringMin*1000), pendingIntent);
-
+        if(alarmStatus==1)
+        {
+            ((AlarmManager) getSystemService(ALARM_SERVICE)).setExact(AlarmManager.RTC_WAKEUP, (System.currentTimeMillis() + ringMin * 1000), pendingIntent);
+        }
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 

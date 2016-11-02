@@ -137,6 +137,7 @@ public class FullscreenActivity extends AppCompatActivity
         ab.hide();
         SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String alarmLabel = sharedPreferences.getString("alarmLabel","Wake Up!");
+        final int alarmStatus = sharedPreferences.getInt("alarmStatus",0);
         TextView tv = (TextView) findViewById(R.id.dtext);
         tv.setText(alarmLabel);
 

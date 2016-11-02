@@ -31,6 +31,16 @@
         </activity>
         <activity android:name=".SettingsActivity">
         </activity>
+
+        <receiver android:name="drawable.Widget_Activity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget__activity_info"/>
+        </receiver>
     </application>
 
 </manifest>

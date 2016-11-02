@@ -17,8 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.security.Permission;
 import java.security.Permissions;
@@ -28,7 +30,7 @@ import java.util.StringTokenizer;
 
 public class MainActivity extends AppCompatActivity
 {
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     String alarmText="";
     String ampm="AM";
     @Override
@@ -42,15 +44,19 @@ public class MainActivity extends AppCompatActivity
         int hr = sharedPreferences.getInt("ringHour",0);
         ampm = sharedPreferences.getString("ampm","AM");
         String alarmLabel = sharedPreferences.getString("alarmLabel","Wake Up!");
-        alarmText=hr+" : "+min+" "+ampm;
-        if(min <10 ){alarmText=hr+" : 0"+min+" "+ampm;}
-        if(hr <10 ){alarmText="0"+hr+" : "+min+" "+ampm;}
+        alarmText=hr+":"+min+" "+ampm;
+        if(min <10 ){alarmText=hr+":0"+min+" "+ampm;}
+        if(hr <10 ){alarmText="0"+hr+":"+min+" "+ampm;}
         if(min<10 && hr<10 ){alarmText="0"+hr+" : 0"+min+" "+ampm;}
-
+        String at = alarmText;
         TextView tv = (TextView) findViewById(R.id.textView1);
         TextView tv1 = (TextView) findViewById(R.id.mainLabel);
         tv.setText(alarmText);
         tv1.setText(alarmLabel);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("alarmLabel",alarmLabel);
+        editor.putString("alarmText",at);
+        editor.commit();
 
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -118,6 +124,27 @@ public class MainActivity extends AppCompatActivity
                 }
                 return;
             }
+        }
+    }
+
+    public void switchAction(View view)
+    {
+        SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Switch sw = (Switch)findViewById(R.id.switch1);
+        if(sw.isChecked())
+        {
+           Toast toast =  Toast.makeText(getApplicationContext(),"Alarm On",Toast.LENGTH_SHORT);
+            toast.show();
+            editor.putInt("alarmStatus",1);
+            editor.commit();
+        }
+        else
+        {
+            Toast toast =  Toast.makeText(getApplicationContext(),"Alarm off",Toast.LENGTH_SHORT);
+            toast.show();
+            editor.putInt("alarmStatus",0);
+            editor.commit();
         }
     }
 }
