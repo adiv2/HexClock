@@ -41,10 +41,16 @@ public class MainActivity extends AppCompatActivity
         int min = sharedPreferences.getInt("ringMin",0);
         int hr = sharedPreferences.getInt("ringHour",0);
         ampm = sharedPreferences.getString("ampm","AM");
+        String alarmLabel = sharedPreferences.getString("alarmLabel","Wake Up!");
         alarmText=hr+" : "+min+" "+ampm;
+        if(min <10 ){alarmText=hr+" : 0"+min+" "+ampm;}
+        if(hr <10 ){alarmText="0"+hr+" : "+min+" "+ampm;}
+        if(min<10 && hr<10 ){alarmText="0"+hr+" : 0"+min+" "+ampm;}
 
         TextView tv = (TextView) findViewById(R.id.textView1);
+        TextView tv1 = (TextView) findViewById(R.id.mainLabel);
         tv.setText(alarmText);
+        tv1.setText(alarmLabel);
 
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE)

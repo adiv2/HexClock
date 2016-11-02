@@ -84,9 +84,9 @@ public class FullscreenActivity extends AppCompatActivity
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null)
             {
-                actionBar.show();
+                //actionBar.show();
             }
-            mControlsView.setVisibility(View.VISIBLE);
+            mControlsView.setVisibility(View.INVISIBLE);
         }
     };
     private boolean mVisible;
@@ -132,6 +132,10 @@ public class FullscreenActivity extends AppCompatActivity
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         setContentView(R.layout.activity_fullscreen);
+        SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        String alarmLabel = sharedPreferences.getString("alarmLabel","Wake Up!");
+        TextView tv = (TextView) findViewById(R.id.dtext);
+        tv.setText(alarmLabel);
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wl = pm.newWakeLock(PowerManager.RELEASE_FLAG_WAIT_FOR_NO_PROXIMITY, "My Tag");
