@@ -3,6 +3,8 @@ package com.apps.aditya.hc0;
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -59,6 +61,11 @@ public class MainActivity extends AppCompatActivity
         editor.putString("alarmText",at);
         editor.commit();
         Switch sw  = (Switch) findViewById(R.id.switch1);
+        Intent intent = new Intent(this,Widget_Activity.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), Widget_Activity.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
 
         if(alarmStatus==1) {sw.setChecked(true);}
         else {sw.setChecked(false);}
