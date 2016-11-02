@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -57,6 +58,7 @@ public class Picker extends AppCompatActivity
         editor.putString("ampm",ampm);
         editor.commit();
         Intent intent = new Intent(Picker.this, FullscreenActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         PendingIntent pendingIntent = PendingIntent.getActivity(Picker.this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         ((AlarmManager) getSystemService(ALARM_SERVICE)).setExact(AlarmManager.RTC_WAKEUP, (System.currentTimeMillis()+ ringMin*1000), pendingIntent);
 

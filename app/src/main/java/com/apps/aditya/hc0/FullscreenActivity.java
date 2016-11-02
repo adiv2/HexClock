@@ -85,6 +85,7 @@ public class FullscreenActivity extends AppCompatActivity
             if (actionBar != null)
             {
                 //actionBar.show();
+                actionBar.hide();
             }
             mControlsView.setVisibility(View.INVISIBLE);
         }
@@ -132,6 +133,8 @@ public class FullscreenActivity extends AppCompatActivity
                         WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         setContentView(R.layout.activity_fullscreen);
+        ActionBar ab = getSupportActionBar();
+        ab.hide();
         SharedPreferences sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         String alarmLabel = sharedPreferences.getString("alarmLabel","Wake Up!");
         TextView tv = (TextView) findViewById(R.id.dtext);
